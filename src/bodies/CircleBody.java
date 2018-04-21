@@ -28,11 +28,14 @@ public class CircleBody extends RigidBody2 {
 	
 	public Vec2 circleContact(RigidBody2 body) {
 		Vec2 bodyPos = new Vec2(body.getPosition());
+		bodyPos.addVec(new Vec2(body.getSizeX() / 2, body.getSizeY() / 2));
+		
 		Vec2 circlePos = new Vec2(this.getPosition());
+		circlePos.addVec(new Vec2(this.getSizeX() / 2, this.getSizeY() / 2));
 		
 		bodyPos.addVec(circlePos.scale(-1));
 		
-		if(bodyPos.getLength() <= body.getSizeX() + this.getSizeX()) {
+		if(Math.abs(bodyPos.getLength()) <= body.getSizeX() / 2 + this.getSizeX() / 2) {
 			bodyPos.scale(0.5);
 			bodyPos.addVec(body.getPosition());
 			return bodyPos;

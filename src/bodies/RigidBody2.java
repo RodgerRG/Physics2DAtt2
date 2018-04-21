@@ -12,6 +12,8 @@ public abstract class RigidBody2 {
 	protected Vec2 center;
 	protected BodyType bodyType;
 	protected double mass;
+	protected double density;
+	protected double attenuation;
 	
 	public RigidBody2(Vec2 center, Vec2 startV, double sizeX, double sizeY, double mass) {
 		this.velocity = startV;

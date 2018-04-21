@@ -19,11 +19,13 @@ public class CollisionDetector {
 		
 		while(i.hasNext()) {
 			RigidBody2 bodyA = i.next();
-			RigidBody2 bodyB = j.next();
-			
-			if(doesRoughCollide(bodyA, bodyB)) {
-				generateCollisionPoints(bodyA, bodyB);
+			while(j.hasNext()) {
+				RigidBody2 bodyB = j.next();
+				if(doesRoughCollide(bodyA, bodyB)) {
+					generateCollisionPoints(bodyA, bodyB);
+				}
 			}
+			j = bodies.iterator();
 		}
 		
 		return collisionPoints;
