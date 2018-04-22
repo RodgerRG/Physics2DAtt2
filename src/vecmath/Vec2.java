@@ -53,4 +53,8 @@ public class Vec2 {
 		 double newY = y * scale;
 		 return new Vec2(newX, newY);
 	}
+	
+	public Vec2 tangent() {
+		return new Vec2(-x, y);
+	}
 }

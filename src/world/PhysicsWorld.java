@@ -1,11 +1,8 @@
 package world;
 
-import java.util.Collection;
-
 import bodies.RigidBody2;
 import collisiondetection.CollisionDetector;
 import collisionresolver.CollisionResolver;
-import vecmath.Vec2;
 
 /**This object represents the space in which all the 2D rigid bodies exist.*/
 public class PhysicsWorld {

@@ -13,15 +13,21 @@ public abstract class RigidBody2 {
 	protected BodyType bodyType;
 	protected double mass;
 	protected double density;
-	protected double attenuation;
+	protected double restitution;
 	protected double angularMomentum;
+	protected double rotationalInertia;
+	protected Vec2 com;
 	
-	public RigidBody2(Vec2 center, Vec2 startV, double sizeX, double sizeY, double mass, double angularMomentum) {
+	public RigidBody2(Vec2 center, Vec2 com, Vec2 startV, double sizeX, double sizeY, double mass, double restitution, double angularMomentum, double rotationalInertia) {
 		this.velocity = startV;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.center = center;
+		this.restitution = restitution;
 		this.mass = mass;
+		this.com = com;
+		this.angularMomentum = angularMomentum;
+		this.rotationalInertia = rotationalInertia;
 	}
 	
 	public Vec2 getVelocity() {
@@ -46,6 +52,26 @@ public abstract class RigidBody2 {
 	
 	public double getMass() {
 		return mass;
+	}
+	
+	public double getRestitution() {
+		return restitution;
+	}
+	
+	public Vec2 getCOM() {
+		return com;
+	}
+	
+	public double getAngularMomentum() {
+		return angularMomentum;
+	}
+	
+	public void addAngularMomentum(double deltaM) {
+		angularMomentum += deltaM;
+	}
+	
+	public double getRotationalIntertia() {
+		return rotationalInertia;
 	}
 	
 	public abstract Collection<Vec2> generateContactPoints(RigidBody2 body);
