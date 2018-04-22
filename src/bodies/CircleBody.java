@@ -9,8 +9,8 @@ import vecmath.Vec2;
 public class CircleBody extends RigidBody2 {
 	
 	
-	public CircleBody(Vec2 center, Vec2 startV, double size, double mass) {
-		super(center, startV, size, size, mass);
+	public CircleBody(Vec2 center, Vec2 startV, double size, double mass, double angularMomentum) {
+		super(center, startV, size, size, mass, angularMomentum);
 	}
 
 	@Override
