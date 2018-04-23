@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 public class PaintPanel extends JPanel{
 	@Override
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		for(Component c : this.getComponents()) {
 			c.paint(g);
 		}

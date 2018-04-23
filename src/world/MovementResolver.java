@@ -27,6 +27,7 @@ public class MovementResolver {
 			Vec2 currentPos = body.getCOM();
 			Vec2 movement = body.getVelocity().scale(((double) millis / (double) 1000)); 
 			currentPos.addVec(movement);
+			body.getPosition().addVec(movement);
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package bodies;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import vecmath.Vec2;
@@ -18,8 +19,8 @@ public abstract class RigidBody2 {
 	protected double rotationalInertia;
 	protected Vec2 com;
 	
-	protected Collection<Vec2> previousContacts;
-	protected Collection<Vec2> previousNormals;
+	protected Collection<Vec2> previousContacts = new ArrayList<>();
+	protected Collection<Vec2> previousNormals = new ArrayList<>();
 	
 	public RigidBody2(Vec2 center, Vec2 com, Vec2 startV, double sizeX, double sizeY, double mass, double restitution, double angularMomentum, double rotationalInertia) {
 		this.velocity = startV;

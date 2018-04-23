@@ -15,23 +15,31 @@ public class TestWorld {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setSize(new Dimension(1920, 1080));
 
-		PhysicsWorld pWorld = new PhysicsWorld();
-		CircleBody c = new CircleBody(new Vec2(500, 500), new Vec2(600, 600), new Vec2(10, 10), 200, 10, 1, 0, 0);
-		pWorld.addBody(c);
+		PaintPanel pPanel = new PaintPanel();
 
-		SCircle circle = new SCircle(c);
-		mainFrame.add(circle);
+		PhysicsWorld pWorld = new PhysicsWorld();
+		CircleBody c1 = new CircleBody(new Vec2(500, 500), new Vec2(600, 600), new Vec2(10, 0), 200, 10, 1, 0, 0);
+		pWorld.addBody(c1);
+		CircleBody c2 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(-10, 0), 200, 10, 1, 0, 0);
+		pWorld.addBody(c2);
+
+		SCircle circle1 = new SCircle(c1);
+		SCircle circle2 = new SCircle(c2);
+
+		pPanel.add(circle1);
+		pPanel.add(circle2);
+
+		mainFrame.add(pPanel);
+
 		mainFrame.setVisible(true);
 
 		int count = 0;
 
 		while(true) {
-			pWorld.tick(100);
-			if(count % 20 == 0) {
-				circle.update();
-				circle.repaint();
-			}
-			count++;
+			pWorld.tick(1000);
+			circle1.update();
+			circle2.update();
+			pPanel.repaint();
 		}
 	}
 }
