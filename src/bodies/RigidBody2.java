@@ -18,6 +18,9 @@ public abstract class RigidBody2 {
 	protected double rotationalInertia;
 	protected Vec2 com;
 	
+	protected Collection<Vec2> previousContacts;
+	protected Collection<Vec2> previousNormals;
+	
 	public RigidBody2(Vec2 center, Vec2 com, Vec2 startV, double sizeX, double sizeY, double mass, double restitution, double angularMomentum, double rotationalInertia) {
 		this.velocity = startV;
 		this.sizeX = sizeX;
@@ -74,5 +77,11 @@ public abstract class RigidBody2 {
 		return rotationalInertia;
 	}
 	
+	protected void clearContacts() {
+		previousContacts.clear();
+		previousNormals.clear();
+	}
+	
 	public abstract Collection<Vec2> generateContactPoints(RigidBody2 body);
+	public abstract Collection<Vec2> getNormals(RigidBody2 body);
 }

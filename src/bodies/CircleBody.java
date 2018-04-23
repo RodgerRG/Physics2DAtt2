@@ -8,25 +8,24 @@ import vecmath.Vec2;
 /**This body's size is the radius of the circle*/
 public class CircleBody extends RigidBody2 {
 	
-	
 	public CircleBody(Vec2 center, Vec2 com, Vec2 startV, double size, double mass, double restitution, double angularMomentum, double rotationalInertia) {
 		super(center, com, startV, size, size, mass, restitution, angularMomentum, rotationalInertia);
 	}
 
 	@Override
 	public Collection<Vec2> generateContactPoints(RigidBody2 body) {
+		this.clearContacts();
 		BodyType collisionType = body.getType();
-		Collection<Vec2> contactPoints = new ArrayList<>();
 		
 		if(collisionType == BodyType.CIRCLE_BODY) {
-			 contactPoints.add(circleContact(body));
-			 return contactPoints;
+			 previousContacts.add(generateCircleContact(body));
+			 return previousContacts;
 		}
 		
 		return null;
 	}
 	
-	public Vec2 circleContact(RigidBody2 body) {
+	public Vec2 generateCircleContact(RigidBody2 body) {
 		Vec2 bodyPos = new Vec2(body.getPosition());
 		bodyPos.addVec(new Vec2(body.getSizeX() / 2, body.getSizeY() / 2));
 		
@@ -38,9 +37,24 @@ public class CircleBody extends RigidBody2 {
 		if(Math.abs(bodyPos.getLength()) <= body.getSizeX() / 2 + this.getSizeX() / 2) {
 			bodyPos.scale(0.5);
 			bodyPos.addVec(body.getPosition());
+			generateNormals(body);
 			return bodyPos;
 		}
 		
 		return null;
+	}
+
+	private void generateNormals(RigidBody2 body) {
+		Vec2 posA = new Vec2(body.getCOM());
+		Vec2 posB = new Vec2(this.getCOM());
+		
+		Vec2 normal = new Vec2(posA.scale(-1));
+		normal.addVec(posB);
+		previousNormals.add(normal.tangent());
+	}
+
+	@Override
+	public Collection<Vec2> getNormals(RigidBody2 body) {
+		return previousNormals;
 	}
 }

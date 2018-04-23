@@ -11,7 +11,9 @@ public class PhysicsWorld {
 	private CollisionResolver cResolver;
 	
 	public PhysicsWorld() {
-		
+		cDetector = new CollisionDetector();
+		mResolver = new MovementResolver();
+		cResolver = new CollisionResolver();
 	}
 	
 	/**Adds a rigid body into the physics world.*/
@@ -27,6 +29,5 @@ public class PhysicsWorld {
 	public void tick(int millis) {
 		mResolver.moveBodies(millis);
 		cResolver.resolveCollisions(cDetector.detectCollisions(mResolver.returnBodies()));
-		
 	}
 }

@@ -58,7 +58,7 @@ public class CollisionDetector {
 	
 	public void generateCollisionPoints(RigidBody2 bodyA, RigidBody2 bodyB) {
 		if(bodyA.generateContactPoints(bodyB) != null) {
-			collisionPoints.add(new ContactPoint(bodyA, bodyB, bodyA.generateContactPoints(bodyB)));
+			collisionPoints.add(new ContactPoint(bodyA, bodyB, bodyA.generateContactPoints(bodyB), bodyA.getNormals(bodyB)));
 		}
 	}
 }
