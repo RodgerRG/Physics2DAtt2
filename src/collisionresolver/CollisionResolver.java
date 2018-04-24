@@ -83,6 +83,9 @@ public class CollisionResolver {
 	}
 	
 	private double solverotImpulseScalar(RigidBody2 bodyA, RigidBody2 bodyB, Vec2 normal, Vec2 collisionPoint) {
+		Vec2 cp = new Vec2(collisionPoint);
+		cp.addVec(new Vec2(bodyA.getPosition()).scale(-1));
+		
 		Vec2 radA = new Vec2(bodyA.getCOM().scale(-1));
 		radA.addVec(collisionPoint);
 		
@@ -112,11 +115,14 @@ public class CollisionResolver {
 	}
 
 	private Vec2 solveRotationalVelocity(RigidBody2 bodyA, RigidBody2 bodyB, Vec2 normal, Vec2 collisionPoint) {
+		Vec2 cp = new Vec2(collisionPoint);
+		cp.addVec(new Vec2(bodyA.getPosition()).scale(-1));
+		
 		Vec2 radA = new Vec2(bodyA.getCOM().scale(-1));
-		radA.addVec(collisionPoint);
+		radA.addVec(cp);
 		
 		Vec2 radB = new Vec2(bodyB.getCOM().scale(-1));
-		radB.addVec(collisionPoint);
+		radB.addVec(cp);
 		
 		Vec2 velocityA = new Vec2(radA.scale(bodyA.getAngularMomentum() / bodyA.getRotationalIntertia()));
 		Vec2 velocityB = new Vec2(radB.scale(bodyB.getAngularMomentum() / bodyB.getRotationalIntertia()));

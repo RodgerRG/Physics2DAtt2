@@ -18,9 +18,9 @@ public class TestWorld {
 		PaintPanel pPanel = new PaintPanel();
 
 		PhysicsWorld pWorld = new PhysicsWorld();
-		CircleBody c1 = new CircleBody(new Vec2(500, 500), new Vec2(600, 600), new Vec2(10, 0), 200, 10, 1, 0, 0);
+		CircleBody c1 = new CircleBody(new Vec2(500, 500), new Vec2(600, 600), new Vec2(10, 0), 200, 10, 1, 0, 1);
 		pWorld.addBody(c1);
-		CircleBody c2 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(-10, 0), 200, 10, 1, 0, 0);
+		CircleBody c2 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(-10, 0), 200, 10, 1, 0, 1);
 		pWorld.addBody(c2);
 
 		SCircle circle1 = new SCircle(c1);
