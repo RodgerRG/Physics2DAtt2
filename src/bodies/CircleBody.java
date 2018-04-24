@@ -36,8 +36,8 @@ public class CircleBody extends RigidBody2 {
 		bodyPos.addVec(circlePos.scale(-1));
 		
 		if(Math.abs(bodyPos.getLength()) <= body.getSizeX() / 2 + this.getSizeX() / 2) {
-			bodyPos.scale(0.5);
-			bodyPos.addVec(body.getCOM());
+			bodyPos = bodyPos.scale(0.5);
+			bodyPos.addVec(this.getCOM());
 			generateNormals(body);
 			return bodyPos;
 		}
