@@ -21,7 +21,7 @@ public class CollisionDetector {
 			RigidBody2 bodyA = i.next();
 			while(j.hasNext()) {
 				RigidBody2 bodyB = j.next();
-				if(doesRoughCollide(bodyA, bodyB)) {
+				if(doesRoughCollide(bodyA, bodyB) && !bodyA.equals(bodyB)) {
 					generateCollisionPoints(bodyA, bodyB);
 				}
 			}
@@ -37,19 +37,19 @@ public class CollisionDetector {
 		
 		posA.addVec(posB.scale(-1));
 		
-		if(posA.getX() > 0 && posA.getX() < bodyA.getSizeX()) {
+		if(posA.getX() > 0 && posA.getX() < bodyB.getSizeX()) {
 			return true;
 		}
 		
-		if(posA.getX() < 0 && posA.getX() > bodyB.getSizeX() * -1) {
+		if(posA.getX() < 0 && posA.getX() > bodyA.getSizeX() * -1) {
 			return true;
 		}
 		
-		if(posA.getY() > 0 && posA.getY() < bodyA.getSizeY()) {
+		if(posA.getY() > 0 && posA.getY() < bodyB.getSizeY()) {
 			return true;
 		}
 		
-		if(posA.getY() < 0 && posA.getY() > bodyB.getSizeY() * -1) {
+		if(posA.getY() < 0 && posA.getY() > bodyA.getSizeY() * -1) {
 			return true;
 		}
 		

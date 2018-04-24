@@ -36,7 +36,7 @@ public class TestWorld {
 		int count = 0;
 
 		while(true) {
-			pWorld.tick(1000);
+			pWorld.tick(100);
 			circle1.update();
 			circle2.update();
 			pPanel.repaint();

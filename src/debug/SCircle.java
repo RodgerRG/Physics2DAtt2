@@ -14,9 +14,9 @@ public class SCircle extends JComponent{
 	private CircleBody body;
 	
 	public SCircle(CircleBody body) {
-		radius = (int) body.getSizeX() / 2;
-		posX = (int) body.getCOM().getX();
-		posY = (int) body.getCOM().getY();
+		radius = (int) body.getSizeX();
+		posX = (int) body.getPosition().getX();
+		posY = (int) body.getPosition().getY();
 		this.body = body;
 	}
 	

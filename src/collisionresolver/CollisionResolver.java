@@ -23,7 +23,7 @@ public class CollisionResolver {
 		boolean isSolved = false;
 		int count = 0;
 
-		while(!isSolved || count > 100) {
+		while(!isSolved && count < 100) {
 			isSolved = solveCollision(bodyA, bodyB, collisionPoints, normals);
 			count++;
 		}
