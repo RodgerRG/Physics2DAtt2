@@ -21,9 +21,9 @@ public class SCircle extends JComponent{
 	}
 	
 	public void update() {
-		radius = (int) body.getSizeX() / 2;
-		posX = (int) body.getCOM().getX();
-		posY = (int) body.getCOM().getY();
+		radius = (int) body.getSizeX();
+		posX = (int) body.getPosition().getX();
+		posY = (int) body.getPosition().getY();
 	}
 	
 	@Override

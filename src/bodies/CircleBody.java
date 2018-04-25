@@ -51,7 +51,7 @@ public class CircleBody extends RigidBody2 {
 		
 		Vec2 normal = new Vec2(posA.scale(-1));
 		normal.addVec(posB);
-		previousNormals.add(normal.tangent());
+		previousNormals.add(normal);
 	}
 
 	@Override
