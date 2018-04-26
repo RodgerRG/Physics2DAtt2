@@ -96,4 +96,5 @@ public abstract class RigidBody2 {
 	
 	public abstract Collection<Vec2> generateContactPoints(RigidBody2 body);
 	public abstract Collection<Vec2> getNormals(RigidBody2 body);
+	public abstract void updateRoughCollisionBox();
 }

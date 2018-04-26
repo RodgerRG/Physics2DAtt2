@@ -63,4 +63,5 @@ public class Vec2 {
 		this.x = x / length;
 		this.y = y / length;
 	}
+	
 }

@@ -59,4 +59,9 @@ public class CircleBody extends RigidBody2 {
 	public Collection<Vec2> getNormals(RigidBody2 body) {
 		return previousNormals;
 	}
+
+	@Override
+	public void updateRoughCollisionBox() {
+		//Intended, circle collision box doesn't care about the orientation.
+	}
 }
