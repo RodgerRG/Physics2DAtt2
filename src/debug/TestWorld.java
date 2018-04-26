@@ -11,7 +11,7 @@ import vecmath.Vec2;
 import world.PhysicsWorld;
 
 public class TestWorld {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setSize(new Dimension(1920, 1080));
 
@@ -40,6 +40,7 @@ public class TestWorld {
 			circle1.update();
 			circle2.update();
 			pPanel.repaint();
+			Thread.sleep( (long) ((1.0 / 60.0) * 1000)); //DIRTY HACK.
 		}
 	}
 }

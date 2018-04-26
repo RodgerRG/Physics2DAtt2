@@ -19,6 +19,9 @@ public abstract class RigidBody2 {
 	protected double rotationalInertia;
 	protected Vec2 com;
 	
+	//an angle offset from the x axis, anti-clockwise.
+	protected double angle;
+	
 	protected Collection<Vec2> previousContacts = new ArrayList<>();
 	protected Collection<Vec2> previousNormals = new ArrayList<>();
 	
@@ -81,6 +84,14 @@ public abstract class RigidBody2 {
 	protected void clearContacts() {
 		previousContacts.clear();
 		previousNormals.clear();
+	}
+	
+	public double getAngle() {
+		return angle;
+	}
+	
+	public void setAngle(double angle) {
+		this.angle = angle;
 	}
 	
 	public abstract Collection<Vec2> generateContactPoints(RigidBody2 body);
