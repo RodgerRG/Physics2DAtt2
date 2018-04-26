@@ -1,0 +1,9 @@
+plugins {
+	id 'application'
+}
+
+mainClassName = 'debug.TestWorld'
+
+sourceSets {
+	main.java.srcDir 'src'
+}
