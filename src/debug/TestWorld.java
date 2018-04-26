@@ -1,12 +1,14 @@
 package debug;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.util.concurrent.Executors;
 
 import javax.swing.JFrame;
 import javax.swing.JWindow;
+import javax.swing.Timer;
 
 import bodies.CircleBody;
+import bodies.RigidBody2;
 import vecmath.Vec2;
 import world.PhysicsWorld;
 
@@ -32,15 +34,24 @@ public class TestWorld {
 		mainFrame.add(pPanel);
 
 		mainFrame.setVisible(true);
-
-		int count = 0;
+		
+		long cTime = System.nanoTime();
+		long sTime = System.nanoTime();
 
 		while(true) {
-			pWorld.tick(100);
-			circle1.update();
-			circle2.update();
-			pPanel.repaint();
-			Thread.sleep( (long) ((1.0 / 60.0) * 1000)); //DIRTY HACK.
+			if((System.nanoTime() - cTime) / 1e6 >= 1) {
+				pWorld.tick(1);
+				circle1.update();
+				circle2.update();
+				
+				cTime = System.nanoTime();
+			}
+			
+			if((System.nanoTime() - sTime) / 1e6 >= 1) {
+				pPanel.repaint();
+				
+				sTime = System.nanoTime();
+			}
 		}
 	}
 }

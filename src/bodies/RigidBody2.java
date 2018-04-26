@@ -90,8 +90,8 @@ public abstract class RigidBody2 {
 		return angle;
 	}
 	
-	public void setAngle(double angle) {
-		this.angle = angle;
+	public void addAngle(double angle) {
+		this.angle += angle;
 	}
 	
 	public abstract Collection<Vec2> generateContactPoints(RigidBody2 body);

@@ -42,7 +42,7 @@ public class MovementResolver {
 		double w = l/i;
 		
 		double radAngle = w / time;
-		body.setAngle(radAngle);
+		body.addAngle(radAngle);
 		
 	}
 }
