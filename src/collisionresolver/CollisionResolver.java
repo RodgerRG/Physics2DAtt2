@@ -8,6 +8,7 @@ import collisiondetection.ContactPoint;
 import vecmath.Vec2;
 
 public class CollisionResolver {
+	
 	public void resolveCollisions(Collection<ContactPoint> contactPoints) {
 		for(ContactPoint cp : contactPoints) {
 			RigidBody2 bodyA = cp.getBodyA();

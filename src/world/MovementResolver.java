@@ -9,9 +9,19 @@ import vecmath.Vec2;
 
 public class MovementResolver {
 	private Collection<RigidBody2> bodies = new ArrayList<>();
+	private double gravConst = 9.81;
+	private boolean isGrav = true;
 	
 	public MovementResolver() {
 
+	}
+	
+	public void toggleGrav() {
+		isGrav = !isGrav;
+	}
+	
+	public void setGrav(double newConst) {
+		gravConst = newConst;
 	}
 
 	public void addBody(RigidBody2 body) {
@@ -25,6 +35,9 @@ public class MovementResolver {
 	public void moveBodies(int millis) {
 		for(RigidBody2 body : bodies) {
 			Vec2 currentPos = body.getCOM();
+			if(isGrav) {
+				body.getVelocity().addVec(new Vec2(0, gravConst * (double) millis / (double) 1000));
+			}
 			Vec2 movement = body.getVelocity().scale(((double) millis / (double) 1000));
 			resolveRotations(body, millis);
 			currentPos.addVec(movement);
