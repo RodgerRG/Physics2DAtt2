@@ -94,6 +94,26 @@ public abstract class RigidBody2 {
 		this.angle += angle;
 	}
 	
+	protected void lineLineCollisionContact(Vec2 originA, Vec2 originB, Vec2 lineA, Vec2 lineB) {
+		double scaleB = (originB.getY() + originA.getX() * lineA.getY() - originA.getY() - originB.getX() * lineA.getY()) / (lineA.getY() * lineB.getX() - lineB.getY());
+		double scaleA = (originB.getY() + lineB.getY() * scaleB - originA.getX()) / lineA.getY();
+		
+		if(scaleA == 1 && scaleB == 1) {
+			Vec2 cp = new Vec2(lineA.scale(scaleA));
+			cp.addVec(originA);
+			previousContacts.add(cp);
+			
+			//calculate the normal of the collision
+			double cosA = lineA.dotProduct(lineB) / (lineA.getLength() * lineB.getLength());
+			double angle = Math.acos(cosA) / 2;
+			
+			double normX = Math.cos(angle) * lineA.getX() + Math.sin(angle) * lineA.getY();
+			double normY = - (Math.sin(angle)) * lineA.getX() + Math.cos(angle) * lineA.getY();
+			
+			previousNormals.add(new Vec2(normX, normY));
+		}
+	}
+	
 	public abstract Collection<Vec2> generateContactPoints(RigidBody2 body);
 	public abstract Collection<Vec2> getNormals(RigidBody2 body);
 	public abstract void updateRoughCollisionBox();

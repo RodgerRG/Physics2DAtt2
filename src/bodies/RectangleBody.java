@@ -51,29 +51,28 @@ public class RectangleBody extends RigidBody2{
 				Vec2 cornerA = new Vec2(cornersA.get(i));
 				Vec2 cornerB = new Vec2(cornersB.get(j));
 				
-				Vec2 comA = new Vec2(this.getCOM());
-				Vec2 comB = new Vec2(bodyB.getCOM());
-				
-				double scaleB = (comB.getY() + comA.getX() * cornerA.getY() - comA.getY() - comB.getX() * cornerA.getY()) / (cornerA.getY() * cornerB.getX() - cornerB.getY());
-				double scaleA = (comB.getY() + cornerB.getY() * scaleB - comA.getX()) / cornerA.getY();
-				
-				if(scaleA == 1 && scaleB == 1) {
-					Vec2 cp = new Vec2(cornerA.scale(scaleA));
-					cp.addVec(comA);
-					previousContacts.add(cp);
-					
-					
-				}
-				
-				//check for edge - edge collisions
 				Vec2 lineA = new Vec2(linesA.get(i));
 				Vec2 lineB = new Vec2(linesB.get(j));
 				
+				Vec2 comA = new Vec2(this.getCOM());
+				Vec2 comB = new Vec2(bodyB.getCOM());
+				
+				this.lineLineCollisionContact(comA, comB, cornerA, cornerB);
+				
+				//check for edge - edge collisions
+				Vec2 originA = new Vec2(this.getCOM());
+				originA.addVec(cornerA);
+				
+				Vec2 originB = new Vec2(bodyB.getCOM());
+				originB.addVec(cornerB);
+				
+				this.lineLineCollisionContact(originA, originB, lineA, lineB);
 			}
+			
+			return previousContacts;
 		}
 		
-		
-		
+		return null;
 	}
 
 	//returns the lines relative to the COM in the order of top left corner going clockwise.
