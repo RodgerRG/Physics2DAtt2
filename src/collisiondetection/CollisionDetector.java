@@ -14,18 +14,16 @@ public class CollisionDetector {
 	
 	public Collection<ContactPoint> detectCollisions(Collection<RigidBody2> bodies) {
 		collisionPoints = new ArrayList<>();
-		Iterator<RigidBody2> i = bodies.iterator();
-		Iterator<RigidBody2> j = bodies.iterator();
+		ArrayList<RigidBody2> b = (ArrayList<RigidBody2>) bodies;
 		
-		while(i.hasNext()) {
-			RigidBody2 bodyA = i.next();
-			while(j.hasNext()) {
-				RigidBody2 bodyB = j.next();
+		for(int i = 0; i < bodies.size(); i++) {
+			RigidBody2 bodyA = b.get(i);
+			for(int j = i; j < bodies.size(); j++) {
+				RigidBody2 bodyB = b.get(j);
 				if(doesRoughCollide(bodyA, bodyB) && !bodyA.equals(bodyB)) {
 					generateCollisionPoints(bodyA, bodyB);
 				}
 			}
-			j = bodies.iterator();
 		}
 		
 		return collisionPoints;

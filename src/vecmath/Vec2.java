@@ -57,4 +57,10 @@ public class Vec2 {
 	public Vec2 tangent() {
 		return new Vec2(y, -x);
 	}
+	
+	public void normalize() {
+		double length = this.getLength();
+		this.x = x / length;
+		this.y = y / length;
+	}
 }
