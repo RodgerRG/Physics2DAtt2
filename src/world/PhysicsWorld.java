@@ -27,9 +27,9 @@ public class PhysicsWorld {
 	}
 	
 	public void tick(int millis) {
+		mResolver.moveBodies(millis);
 		boolean isFrameResolved = false;
 		while(!isFrameResolved) {
-			mResolver.moveBodies(millis);
 			isFrameResolved = cResolver.resolveCollisions(cDetector.detectCollisions(mResolver.returnBodies()));
 		}
 	}

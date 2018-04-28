@@ -42,29 +42,31 @@ public class CollisionResolver {
 			Vec2 normal = new Vec2(nIterator.next());
 			Vec2 iLNormal = solveImpulse(bodyA, bodyB, normal, c);
 
-			if(iLNormal.getX() > 0 || iLNormal.getY() > 0) {
-				if(iLNormal.getLength() < 0.001) {
-					shouldStop =  true;
-				} else {
-					Vec2 aDeltaV = iLNormal.scale(-1 / bodyA.getMass());
-					Vec2 bDeltaV = iLNormal.scale(1 / bodyB.getMass());
-
-					Vec2 radA = new Vec2(bodyA.getCOM().scale(-1));
-					radA.addVec(c);
-					Vec2 radB = new Vec2(bodyB.getCOM().scale(-1));
-					radB.addVec(c);
-
-					Vec2 aDeltaI = new Vec2(radA.tangent().scale(iLNormal.dotProduct(radA.tangent()) / radA.getLength()));
-					Vec2 bDeltaI = new Vec2(radB.tangent().scale(iLNormal.dotProduct(radB.tangent()) / radB.getLength()));
-
-					bodyA.getVelocity().addVec(aDeltaV);
-					bodyB.getVelocity().addVec(bDeltaV);
-
-					bodyA.addAngularMomentum(aDeltaI.getLength());
-					bodyB.addAngularMomentum(bDeltaI.getLength());
-				}
+			if(iLNormal.getX() < 0 || iLNormal.getY() < 0) {
+				iLNormal = new Vec2(0, 0);
 			}
-		}
+			
+			if(iLNormal.getLength() < 0.001) {
+				shouldStop =  true;
+			} else {
+				Vec2 aDeltaV = iLNormal.scale(-1 / bodyA.getMass());
+				Vec2 bDeltaV = iLNormal.scale(1 / bodyB.getMass());
+
+				Vec2 radA = new Vec2(bodyA.getCOM().scale(-1));
+				radA.addVec(c);
+				Vec2 radB = new Vec2(bodyB.getCOM().scale(-1));
+				radB.addVec(c);
+
+				Vec2 aDeltaI = new Vec2(radA.tangent().scale(iLNormal.dotProduct(radA.tangent()) / radA.getLength()));
+				Vec2 bDeltaI = new Vec2(radB.tangent().scale(iLNormal.dotProduct(radB.tangent()) / radB.getLength()));
+
+				bodyA.getVelocity().addVec(aDeltaV);
+				bodyB.getVelocity().addVec(bDeltaV);
+
+				bodyA.addAngularMomentum(aDeltaI.getLength());
+				bodyB.addAngularMomentum(bDeltaI.getLength());
+			}
+		} 
 		return shouldStop;
 	}
 
