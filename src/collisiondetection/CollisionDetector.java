@@ -35,7 +35,7 @@ public class CollisionDetector {
 		
 		posA.addVec(posB.scale(-1));
 		
-		if(posA.getX() > 0 && posA.getX() < bodyB.getSizeX()) {
+		if(posA.getX() > 0 && posA.getX() < bodyB.getSizeX() && ) {
 			return true;
 		}
 		

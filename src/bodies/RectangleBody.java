@@ -2,6 +2,7 @@ package bodies;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import vecmath.Vec2;
 
@@ -31,7 +32,22 @@ public class RectangleBody extends RigidBody2{
 	}
 
 	private Collection<Vec2> circleContact(RigidBody2 body) {
-		Vec2 
+		Vec2 circleCOM = body.getCOM();
+		double circleRad = body.getSizeX() / 2;
+		
+		Vec2 rectangleCOM = this.getCOM();
+		ArrayList<Vec2> lines = (ArrayList<Vec2>) this.generateLines();
+		ArrayList<Vec2> corners = (ArrayList<Vec2>) this.generateCorners();
+		
+		for(int i = 0; i < lines.size(); i++) {
+			Vec2 line = new Vec2(lines.get(i));
+			Vec2 corner = new Vec2(corners.get(i));
+			
+			Vec2 lineTangent = new Vec2(line.tangent());
+			this.lineLineCollisionContact(circleCOM, corner, lineTangent, line);
+		}
+		
+		return previousContacts;
 	}
 
 	private Collection<Vec2> rectangleContact(RigidBody2 body) {
