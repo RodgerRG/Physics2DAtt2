@@ -33,22 +33,36 @@ public class CollisionDetector {
 		Vec2 posA = new Vec2(bodyA.getPosition());
 		Vec2 posB = new Vec2(bodyB.getPosition());
 		
-		posA.addVec(posB.scale(-1));
+		//vector from B to A
+		Vec2 diffVec = new Vec2(bodyA.getPosition());
+		diffVec.addVec(posB.scale(-1));
 		
-		if(posA.getX() > 0 && posA.getX() < bodyB.getSizeX() && ) {
-			return true;
+		//B is to the top left of A
+		if(diffVec.getX() >= 0 && diffVec.getY() >= 0) {
+			if(diffVec.getX() <= posB.getX() && diffVec.getY() <= posB.getY()) {
+				return true;
+			}
 		}
 		
-		if(posA.getX() < 0 && posA.getX() > bodyA.getSizeX() * -1) {
-			return true;
+		//B is to the top right of A
+		if(diffVec.getX() <= 0 && diffVec.getY() >= 0) {
+			if(diffVec.getX() * -1 <= posA.getX() && diffVec.getY() <= posB.getY()) {
+				return true;
+			}
 		}
 		
-		if(posA.getY() > 0 && posA.getY() < bodyB.getSizeY()) {
-			return true;
+		//B is to the bottom right of A
+		if(diffVec.getX() >= 0 && diffVec.getY() <= 0) {
+			if(diffVec.getX() <= posB.getX() && diffVec.getY() * -1 <= posA.getY()) {
+				return true;
+			}
 		}
 		
-		if(posA.getY() < 0 && posA.getY() > bodyA.getSizeY() * -1) {
-			return true;
+		//B is to the bottom left of A
+		if(diffVec.getX() <=0 && diffVec.getY() <= 0) {
+			if(diffVec.getX() * -1 <= posA.getX() && diffVec.getY() * -1 <= posA.getY()) {
+				return true;
+			}
 		}
 		
 		return false;

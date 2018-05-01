@@ -3,6 +3,8 @@ package debug;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.Executors;
 
 import javax.swing.JFrame;
@@ -15,13 +17,15 @@ import vecmath.Vec2;
 import world.PhysicsWorld;
 
 public class TestWorld {
+	private static final Collection<SCircle> circles = new ArrayList<SCircle>();
+	private static final PaintPanel pPanel = new PaintPanel();
+
+	private static final PhysicsWorld pWorld = new PhysicsWorld();
+	
 	public static void main(String[] args) throws InterruptedException {
 		JFrame mainFrame = new JFrame();
 		mainFrame.setSize(new Dimension(1920, 1080));
 
-		final PaintPanel pPanel = new PaintPanel();
-
-		final PhysicsWorld pWorld = new PhysicsWorld();
 		CircleBody c1 = new CircleBody(new Vec2(500, 500), new Vec2(600, 600), new Vec2(50, 0), 200, 10, 1, 0, 1);
 		pWorld.addBody(c1);
 		CircleBody c2 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(-50, 0), 200, 10, 1, 0, 1);
@@ -29,21 +33,18 @@ public class TestWorld {
 
 		SCircle circle1 = new SCircle(c1);
 		SCircle circle2 = new SCircle(c2);
+		
+		circles.add(circle1);
+		circles.add(circle2);
 
 		pPanel.add(circle1);
 		pPanel.add(circle2);
 		
 		pPanel.addMouseListener(new MouseListener() {
-
+			
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int x = arg0.getX();
-				int y = arg0.getY();
-				
-				CircleBody c = new CircleBody(new Vec2(x - 100, y - 100), new Vec2(x, y), new Vec2((0.5 - Math.random()) * 100, (0.5 - Math.random()) * 100), 200, 10, 1, 0, 1);
-				pWorld.addBody(c);
-				SCircle circle = new SCircle(c);
-				pPanel.add(circle);
+				TestWorld.addCircle(arg0);
 			}
 
 			@Override
@@ -82,8 +83,9 @@ public class TestWorld {
 		while(true) {
 			if((System.nanoTime() - cTime) / 1e6 >= 1) {
 				pWorld.tick(1);
-				circle1.update();
-				circle2.update();
+				for(SCircle c : circles) {
+					c.update();
+				}
 				
 				cTime = System.nanoTime();
 			}
@@ -94,5 +96,16 @@ public class TestWorld {
 				sTime = System.nanoTime();
 			}
 		}
+	}
+	
+	public static void addCircle(MouseEvent arg0) {
+		int x = arg0.getX();
+		int y = arg0.getY();
+		
+		CircleBody c = new CircleBody(new Vec2(x - 100, y - 100), new Vec2(x, y), new Vec2((0.5 - Math.random()) * 100, (0.5 - Math.random()) * 100), 200, 10, 1, 0, 1);
+		pWorld.addBody(c);
+		SCircle circle = new SCircle(c);
+		circles.add(circle);
+		pPanel.add(circle);
 	}
 }
