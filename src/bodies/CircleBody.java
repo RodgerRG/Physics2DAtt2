@@ -15,11 +15,12 @@ public class CircleBody extends RigidBody2 {
 
 	@Override
 	public Collection<Vec2> generateContactPoints(RigidBody2 body) {
-		this.clearContacts();
 		BodyType collisionType = body.getType();
 		
 		if(collisionType == BodyType.CIRCLE_BODY) {
+			if(generateCircleContact(body) != null) {
 			 previousContacts.add(generateCircleContact(body));
+			}
 			 return previousContacts;
 		}
 		

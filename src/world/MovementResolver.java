@@ -10,7 +10,7 @@ import vecmath.Vec2;
 public class MovementResolver {
 	private Collection<RigidBody2> bodies = new ArrayList<>();
 	private double gravConst = 9.81;
-	private boolean isGrav = true;
+	private boolean isGrav = false;
 	
 	public MovementResolver() {
 

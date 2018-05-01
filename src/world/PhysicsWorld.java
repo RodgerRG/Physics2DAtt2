@@ -1,5 +1,8 @@
 package world;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import bodies.RigidBody2;
 import collisiondetection.CollisionDetector;
 import collisionresolver.CollisionResolver;
@@ -31,6 +34,12 @@ public class PhysicsWorld {
 		boolean isFrameResolved = false;
 		while(!isFrameResolved) {
 			isFrameResolved = cResolver.resolveCollisions(cDetector.detectCollisions(mResolver.returnBodies()));
+			
+			Collection<RigidBody2> bodies = mResolver.returnBodies();
+			
+			for(RigidBody2 b : bodies) {
+				b.clearContacts();
+			}
 		}
 	}
 }

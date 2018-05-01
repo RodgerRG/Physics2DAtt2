@@ -26,7 +26,11 @@ public class CollisionResolver {
 	}
 
 	private boolean resolveCollision(RigidBody2 bodyA, RigidBody2 bodyB, Collection<Vec2> collisionPoints, Collection<Vec2> normals) {
-		return solveCollision(bodyA, bodyB, collisionPoints, normals);
+		if(!collisionPoints.isEmpty() && !normals.isEmpty()) {
+			return solveCollision(bodyA, bodyB, collisionPoints, normals);
+		}
+		//if the contact points don't exist, then the collision didn't happen
+		return true;
 	}
 
 	private boolean solveCollision(RigidBody2 bodyA, RigidBody2 bodyB, Collection<Vec2> collisionPoints, Collection<Vec2> normals) {
@@ -45,7 +49,7 @@ public class CollisionResolver {
 			if(iLNormal.getX() < 0 || iLNormal.getY() < 0) {
 				iLNormal = new Vec2(0, 0);
 			}
-			
+
 			if(iLNormal.getLength() < 0.001) {
 				shouldStop =  true;
 			} else {

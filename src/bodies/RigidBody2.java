@@ -81,7 +81,7 @@ public abstract class RigidBody2 {
 		return rotationalInertia;
 	}
 	
-	protected void clearContacts() {
+	public void clearContacts() {
 		previousContacts.clear();
 		previousNormals.clear();
 	}

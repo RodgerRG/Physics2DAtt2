@@ -18,7 +18,7 @@ public class CollisionDetector {
 		
 		for(int i = 0; i < bodies.size(); i++) {
 			RigidBody2 bodyA = b.get(i);
-			for(int j = i; j < bodies.size(); j++) {
+			for(int j = i + 1; j < bodies.size(); j++) {
 				RigidBody2 bodyB = b.get(j);
 				if(doesRoughCollide(bodyA, bodyB) && !bodyA.equals(bodyB)) {
 					generateCollisionPoints(bodyA, bodyB);
@@ -39,28 +39,28 @@ public class CollisionDetector {
 		
 		//B is to the top left of A
 		if(diffVec.getX() >= 0 && diffVec.getY() >= 0) {
-			if(diffVec.getX() <= posB.getX() && diffVec.getY() <= posB.getY()) {
+			if(diffVec.getX() <= bodyB.getSizeX() && diffVec.getY() <= bodyB.getSizeY()) {
 				return true;
 			}
 		}
 		
 		//B is to the top right of A
 		if(diffVec.getX() <= 0 && diffVec.getY() >= 0) {
-			if(diffVec.getX() * -1 <= posA.getX() && diffVec.getY() <= posB.getY()) {
+			if(diffVec.getX() * -1 <= bodyA.getSizeX() && diffVec.getY() <= bodyB.getSizeY()) {
 				return true;
 			}
 		}
 		
 		//B is to the bottom right of A
 		if(diffVec.getX() >= 0 && diffVec.getY() <= 0) {
-			if(diffVec.getX() <= posB.getX() && diffVec.getY() * -1 <= posA.getY()) {
+			if(diffVec.getX() <= bodyB.getSizeX() && diffVec.getY() * -1 <= bodyA.getSizeY()) {
 				return true;
 			}
 		}
 		
 		//B is to the bottom left of A
 		if(diffVec.getX() <=0 && diffVec.getY() <= 0) {
-			if(diffVec.getX() * -1 <= posA.getX() && diffVec.getY() * -1 <= posA.getY()) {
+			if(diffVec.getX() * -1 <= bodyA.getSizeX() && diffVec.getY() * -1 <= bodyA.getSizeY()) {
 				return true;
 			}
 		}
@@ -69,7 +69,7 @@ public class CollisionDetector {
 	}
 	
 	public void generateCollisionPoints(RigidBody2 bodyA, RigidBody2 bodyB) {
-		if(bodyA.generateContactPoints(bodyB) != null) {
+		if(!bodyA.generateContactPoints(bodyB).isEmpty()) {
 			collisionPoints.add(new ContactPoint(bodyA, bodyB, bodyA.generateContactPoints(bodyB), bodyA.getNormals(bodyB)));
 		}
 	}
