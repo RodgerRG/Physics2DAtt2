@@ -8,7 +8,6 @@ import collisiondetection.ContactPoint;
 import vecmath.Vec2;
 
 public class CollisionResolver {
-
 	public boolean resolveCollisions(Collection<ContactPoint> contactPoints) {
 		boolean isSolved = true;
 		for(ContactPoint cp : contactPoints) {
@@ -24,9 +23,24 @@ public class CollisionResolver {
 		}
 		return isSolved;
 	}
+	
+	private void basicPenetrationResolution(RigidBody2 bodyA, RigidBody2 bodyB) {
+		Vec2 comA = new Vec2(bodyA.getCOM());
+		Vec2 comB = new Vec2(bodyB.getCOM());
+		
+		Vec2 deltaAB = new Vec2(comA.scale(-1));
+		deltaAB.addVec(comB);
+		
+		deltaAB.scale(0.5);
+		Vec2 deltaBA = new Vec2(deltaAB.scale(-1));
+		
+		comA.addVec(deltaBA);
+		comB.addVec(deltaAB);
+	}
 
 	private boolean resolveCollision(RigidBody2 bodyA, RigidBody2 bodyB, Collection<Vec2> collisionPoints, Collection<Vec2> normals) {
 		if(!collisionPoints.isEmpty() && !normals.isEmpty()) {
+			basicPenetrationResolution(bodyA, bodyB);
 			return solveCollision(bodyA, bodyB, collisionPoints, normals);
 		}
 		//if the contact points don't exist, then the collision didn't happen
@@ -45,12 +59,21 @@ public class CollisionResolver {
 		for(Vec2 c : collisionPoints) {
 			Vec2 normal = new Vec2(nIterator.next());
 			Vec2 iLNormal = solveImpulse(bodyA, bodyB, normal, c);
-
-			if(iLNormal.getX() < 0 || iLNormal.getY() < 0) {
-				iLNormal = new Vec2(0, 0);
+			
+			Vec2 normalDir = new Vec2(iLNormal);
+			normalDir.normalize();
+			
+			Vec2 bodyDir = new Vec2(bodyB.getCOM());
+			bodyDir.addVec(bodyA.getCOM().scale(-1));
+			
+			if((bodyDir.getX() > 0 && normalDir.getX() < 0) || (bodyDir.getX() < 0 && normalDir.getX() > 0)) {
+				iLNormal.addVec(new Vec2(iLNormal.getX() * -1, 0));
+			}
+			if((bodyDir.getY() > 0 && normalDir.getY() < 0) ||(bodyDir.getY() < 0 && normalDir.getY() > 0)) {
+				iLNormal.addVec(new Vec2(0, iLNormal.getY() * -1));
 			}
 
-			if(iLNormal.getLength() < 0.001) {
+			if(iLNormal.getLength() < 0.00001) {
 				shouldStop =  true;
 			} else {
 				Vec2 aDeltaV = iLNormal.scale(-1 / bodyA.getMass());

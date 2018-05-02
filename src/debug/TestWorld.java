@@ -28,17 +28,22 @@ public class TestWorld {
 
 		CircleBody c1 = new CircleBody(new Vec2(500, 500), new Vec2(600, 600), new Vec2(50, 0), 200, 10, 1, 0, 1);
 		pWorld.addBody(c1);
-		CircleBody c2 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(-50, 0), 200, 10, 1, 0, 1);
+		CircleBody c2 = new CircleBody(new Vec2(1200, 500), new Vec2(1300, 600), new Vec2(-50, 0), 200, 10, 1, 0, 1);
+		pWorld.addBody(c2);
+		CircleBody c3 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(0, 0), 200, 10, 1, 0, 1);
 		pWorld.addBody(c2);
 
 		SCircle circle1 = new SCircle(c1);
 		SCircle circle2 = new SCircle(c2);
+		SCircle circle3 = new SCircle(c3);
 		
 		circles.add(circle1);
 		circles.add(circle2);
+		circles.add(circle3);
 
 		pPanel.add(circle1);
 		pPanel.add(circle2);
+		pPanel.add(circle3);
 		
 		pPanel.addMouseListener(new MouseListener() {
 			

@@ -56,6 +56,5 @@ public class MovementResolver {
 		
 		double radAngle = w / time;
 		body.addAngle(radAngle);
-		
 	}
 }

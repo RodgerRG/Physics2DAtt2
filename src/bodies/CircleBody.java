@@ -7,7 +7,6 @@ import vecmath.Vec2;
 
 /**This body's size is the radius of the circle*/
 public class CircleBody extends RigidBody2 {
-	
 	public CircleBody(Vec2 center, Vec2 com, Vec2 startV, double size, double mass, double restitution, double angularMomentum, double rotationalInertia) {
 		super(center, com, startV, size, size, mass, restitution, angularMomentum, rotationalInertia);
 		this.bodyType = BodyType.CIRCLE_BODY;
