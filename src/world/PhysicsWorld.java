@@ -13,10 +13,14 @@ public class PhysicsWorld {
 	private MovementResolver mResolver;
 	private CollisionResolver cResolver;
 	
-	public PhysicsWorld() {
+	private final int chunkSize;
+	
+	public PhysicsWorld(int chunkSize) {
 		cDetector = new CollisionDetector();
 		mResolver = new MovementResolver();
 		cResolver = new CollisionResolver();
+		
+		this.chunkSize = chunkSize;
 	}
 	
 	/**Adds a rigid body into the physics world.*/
@@ -27,6 +31,10 @@ public class PhysicsWorld {
 	/**Removes a rigid body from the physics world.*/
 	public void removeBody(RigidBody2 body) {
 		mResolver.removeBody(body);
+	}
+	
+	public int getChunkSize() {
+		return chunkSize;
 	}
 	
 	public void tick(int millis) {

@@ -8,6 +8,9 @@ import collisiondetection.ContactPoint;
 import vecmath.Vec2;
 
 public class CollisionResolver {
+	//limit on the smallest possible value an impulse can take
+	private final double resolution = 1;
+	
 	public boolean resolveCollisions(Collection<ContactPoint> contactPoints) {
 		boolean isSolved = true;
 		for(ContactPoint cp : contactPoints) {
@@ -24,6 +27,7 @@ public class CollisionResolver {
 		return isSolved;
 	}
 	
+	//actually implement this method correctly, the current impl. is a stop-gap solution
 	private void basicPenetrationResolution(RigidBody2 bodyA, RigidBody2 bodyB) {
 		Vec2 comA = new Vec2(bodyA.getCOM());
 		Vec2 comB = new Vec2(bodyB.getCOM());
@@ -73,7 +77,7 @@ public class CollisionResolver {
 				iLNormal.addVec(new Vec2(0, iLNormal.getY() * -1));
 			}
 
-			if(iLNormal.getLength() < 0.00001) {
+			if(iLNormal.getLength() < resolution) {
 				shouldStop =  true;
 			} else {
 				Vec2 aDeltaV = iLNormal.scale(-1 / bodyA.getMass());

@@ -65,6 +65,9 @@ public class CollisionDetector {
 			}
 		}
 		
+		//check if any of the objects are inside each other
+		
+		
 		return false;
 	}
 	

@@ -10,6 +10,7 @@ public abstract class RigidBody2 {
 	//the size variable is the bounding box of the object.
 	protected double sizeX;
 	protected double sizeY;
+	//total distance from the origin of the chunk to the top left corner of the bounding box.
 	protected Vec2 center;
 	protected BodyType bodyType;
 	protected double mass;
@@ -17,7 +18,11 @@ public abstract class RigidBody2 {
 	protected double restitution;
 	protected double angularMomentum;
 	protected double rotationalInertia;
+	//total distance from the origin of the chunk to the COM of the object.
 	protected Vec2 com;
+	
+	//total distance to the origin of the entire world in no. of chunks.
+	protected Vec2 originVec;
 	
 	//an angle offset from the x axis, anti-clockwise.
 	protected double angle;
@@ -25,16 +30,25 @@ public abstract class RigidBody2 {
 	protected Collection<Vec2> previousContacts = new ArrayList<>();
 	protected Collection<Vec2> previousNormals = new ArrayList<>();
 	
-	public RigidBody2(Vec2 center, Vec2 com, Vec2 startV, double sizeX, double sizeY, double mass, double restitution, double angularMomentum, double rotationalInertia) {
+	public RigidBody2(Vec2 originVec, int chunkSize, Vec2 startV, double sizeX, double sizeY, double mass, double restitution, double angularMomentum, double rotationalInertia) {
 		this.velocity = startV;
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
-		this.center = center;
+		this.originVec = originVec;
 		this.restitution = restitution;
 		this.mass = mass;
-		this.com = com;
 		this.angularMomentum = angularMomentum;
 		this.rotationalInertia = rotationalInertia;
+		
+		calculateRelativePosition();
+	}
+	
+	private void calculateRelativePosition() {
+		//work out how many chunks to traverse in the X direction.
+		double absoluteX = originVec.getX();
+		
+		//work out how many chunks to traverse in the Y direction.
+		double absoluteY = originVec.getY();
 	}
 	
 	public Vec2 getVelocity() {

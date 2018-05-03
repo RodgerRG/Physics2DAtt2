@@ -95,7 +95,7 @@ public class TestWorld {
 				cTime = System.nanoTime();
 			}
 			
-			if((System.nanoTime() - sTime) / 1e6 >= 1) {
+			if((System.nanoTime() - sTime) / 1e6 >= 1000.0 / 60.0) {
 				pPanel.repaint();
 				
 				sTime = System.nanoTime();
