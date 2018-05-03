@@ -31,7 +31,7 @@ public class TestWorld {
 		CircleBody c2 = new CircleBody(new Vec2(1200, 500), new Vec2(1300, 600), new Vec2(-50, 0), 200, 10, 1, 0, 1);
 		pWorld.addBody(c2);
 		CircleBody c3 = new CircleBody(new Vec2(800, 500), new Vec2(900, 600), new Vec2(0, 0), 200, 10, 1, 0, 1);
-		pWorld.addBody(c2);
+		pWorld.addBody(c3);
 
 		SCircle circle1 = new SCircle(c1);
 		SCircle circle2 = new SCircle(c2);
